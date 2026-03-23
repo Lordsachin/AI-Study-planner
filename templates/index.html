@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Planner - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gradient">
+    <div class="dashboard-header glass-nav">
+        <h1>AI Study Planner</h1>
+        <div class="user-info">
+            <span>Welcome, {{ username }}</span>
+            <a href="/logout" class="btn-secondary">Logout</a>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Input Form -->
+        <div class="glass-card form-section">
+            <h3>Add New Subject</h3>
+            <form id="predict-form">
+                <div class="input-group">
+                    <label for="subject">Subject Name</label>
+                    <input type="text" id="subject" name="subject" required placeholder="e.g. Mathematics">
+                </div>
+                <div class="input-group">
+                    <label for="hours_before">Study Hours Before Last Exam</label>
+                    <input type="number" id="hours_before" name="hours_before" min="0" max="24" required placeholder="e.g. 2">
+                </div>
+                <div class="input-group">
+                    <label for="hours_after">Planned Study Hours For Next Exam</label>
+                    <input type="number" id="hours_after" name="hours_after" min="0" max="24" required placeholder="e.g. 4">
+                </div>
+                <div class="input-group">
+                    <label for="attendance">Attendance (%)</label>
+                    <input type="number" id="attendance" name="attendance" min="0" max="100" required placeholder="e.g. 85">
+                </div>
+                <div class="input-group">
+                    <label for="prev_score">Previous Score (0-100)</label>
+                    <input type="number" id="prev_score" name="prev_score" min="0" max="100" required placeholder="e.g. 75">
+                </div>
+                <button type="submit" class="btn-primary w-100">Get AI Prediction</button>
+                <p id="predict-msg" class="msg"></p>
+            </form>
+        </div>
+
+        <!-- AI Recommendation Section -->
+        <div class="glass-card ai-section">
+            <h3>Latest AI Recommendation</h3>
+            <div id="latest-ai" class="empty-state">No predictions yet.</div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="glass-card chart-section">
+            <h3>Performance Prediction Overview</h3>
+            <canvas id="performanceChart"></canvas>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
